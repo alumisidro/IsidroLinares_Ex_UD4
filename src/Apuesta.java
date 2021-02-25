@@ -1,24 +1,32 @@
 
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
-import javax.swing.WindowConstants;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+/**
+ * Clase que gestiona apuestas; permite añadir y eliminar partidos además de
+ * realizar quinielas.
+ *
+ * @author Isidro Manuel Linares Camarena
+ * @version 1.0
+ * @since 1.0
+ */
 public class Apuesta extends javax.swing.JFrame {
 
-   
-    public Apuesta() 
-    {
+    /**
+     * Constructor sin parámetros de la clase Apuesta
+     */
+    public Apuesta() {
+        // Inicializar componentes
         initComponents();
+        // Bloquea la redimensión del JFrame
         this.setResizable(Boolean.FALSE);
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -121,98 +129,156 @@ public class Apuesta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Método que utiliza la clase crearPartido para añadir un nuevo partido; se
+     * abre una nueva ventana.
+     *
+     * @param evt Evento obtenido de tipo ActionEvent
+     */
     private void bNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bNuevoActionPerformed
         crearPartido agregarPartido = new crearPartido(this);
+        // Establecer operación predeterminada al cerrar la ventana
         agregarPartido.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        // Establecer tamaño de la ventana
         agregarPartido.setSize(400, 75);
+        // No permitir redimensión de la ventana
         agregarPartido.setResizable(Boolean.FALSE);
+        // Establecer título de la ventana
         agregarPartido.setTitle("Agregar nuevo partido");
+        // Establecer visibilidad de la ventana
         agregarPartido.setVisible(Boolean.TRUE);
     }//GEN-LAST:event_bNuevoActionPerformed
 
+    /**
+     * Borra un partido al recibir el evento de pulsar el botón Eliminar
+     *
+     * @param evt Evento obtenido de tipo ActionEvent
+     */
     private void bEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarActionPerformed
         borraPartido(listaQuiniela.getSelectedIndex());
     }//GEN-LAST:event_bEliminarActionPerformed
 
+    /**
+     * Método de reseteo: Vacía la lista de partidos creados y quinielas
+     * realizadas.
+     *
+     * @param evt Evento obtenido de tipo ActionEvent
+     */
     private void bResetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bResetearActionPerformed
         DefaultListModel modelovacio = new DefaultListModel();
         this.listaQuiniela.setModel(modelovacio);
         this.listaResultados.setModel(modelovacio);
     }//GEN-LAST:event_bResetearActionPerformed
 
-   
-    public int cualquiera(int n1, int n2)
-    {
-        return (int)Math.floor((Math.random()*(n2-n1+1) + n1));
+    /**
+     * Genera un número aleatorio entre los dos parámetros recibidos
+     *
+     * @param n1 número mínimo a retornar
+     * @param n2 número máximo a retornar
+     * @return <code>int</code> número generado
+     */
+    public int cualquiera(int n1, int n2) {
+        return (int) Math.floor((Math.random() * (n2 - n1 + 1) + n1));
     }
-    
+
+    /**
+     * Método para realizar las quinielas; se ejecuta al pulsar el botón
+     * Realizar Quiniela
+     *
+     * @param evt Evento obtenido de tipo ActionEvent
+     */
     private void bRealizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRealizarActionPerformed
         DefaultListModel modeloquinielaresuelta = new DefaultListModel();
-
-        for(int i = 0; i < this.listaQuiniela.getModel().getSize(); i++)
-        {
+        // Bucle que recorre las quinielas realizadas
+        for (int i = 0; i < this.listaQuiniela.getModel().getSize(); i++) {
+            // Cadena de caracteres que contendrá el resultado de la quiniela
             String partidoresuelto = this.listaQuiniela.getModel().getElementAt(i).toString();
-            
-            switch( cualquiera(0,2) )
-            {
+
+            // Se genera un número aleatorio y añade a la cadena de caracteres el resultado
+            switch (cualquiera(0, 2)) {
+                // Si el número es 0
                 case 0:
                     partidoresuelto += " -> 1";
                     break;
+                // Si el número es 1
                 case 1:
                     partidoresuelto += " -> X";
                     break;
+                // Si el número es 2
                 case 2:
                     partidoresuelto += " -> 2";
                     break;
             }
-            
+
+            // Añadir a la quiniela la cadena de caracteres
             modeloquinielaresuelta.addElement(partidoresuelto);
         }
 
+        // Asignar el modelo a la lista de resultados (JList)
         this.listaResultados.setModel(modeloquinielaresuelta);
     }//GEN-LAST:event_bRealizarActionPerformed
 
-    
-    public void partidoNuevo(String partido)
-    {
+    /**
+     * Método sin retorno que añade un nuevo partido
+     *
+     * @param partido cadena de caracteres con el nombre del partido
+     */
+    public void partidoNuevo(String partido) {
+        // Crear nuevo modelo
         DefaultListModel modelonuevo = new DefaultListModel();
 
-        for(int i = 0; i < this.listaQuiniela.getModel().getSize(); i++)
-        {
+        // Bucle que recorre la lista de quinielas
+        for (int i = 0; i < this.listaQuiniela.getModel().getSize(); i++) {
+            // Añadir el elemento de la quiniela al modelo creado
             modelonuevo.addElement(this.listaQuiniela.getModel().getElementAt(i));
         }
+        // Añadir la cadena de caracteres del partido al modelo
         modelonuevo.addElement(partido);
 
+        // Asignar modelo a la lista de quiniela (JList)
         this.listaQuiniela.setModel(modelonuevo);
     }
-    
-  
-    public void borraPartido(int indice)
-    {
+
+    /**
+     * Método sin retorno que borra un partido junto a todos sus datos
+     * asociados: quinielas y resultados.
+     *
+     * @param indice número del partido
+     */
+    public void borraPartido(int indice) {
+        // Crear modelo para las quinielas
         DefaultListModel modelonuevoquiniela = new DefaultListModel();
+        // Crear modelo para los partidos
         DefaultListModel modelonuevoresultados = new DefaultListModel();
 
-        for(int i = 0; i < this.listaQuiniela.getModel().getSize(); i++)
-        {
-            if( i != indice )
-            {
+        // Bucle que recorre la quiniela
+        for (int i = 0; i < this.listaQuiniela.getModel().getSize(); i++) {
+            // Si el índice de la quiniela es diferente al indice del partido
+            if (i != indice) {
+                // Añadir al modelo el elemento de la quiniela (mantenerlo)
                 modelonuevoquiniela.addElement(this.listaQuiniela.getModel().getElementAt(i));
             }
         }
-        
-        for(int i = 0; i < this.listaResultados.getModel().getSize(); i++)
-        {
-            if( i != indice )
-            {
+        // Bucle que recorre los resultados
+        for (int i = 0; i < this.listaResultados.getModel().getSize(); i++) {
+            // Si el índice del resultado es diferente al indice del partido
+            if (i != indice) {
+                // Añadir al modelo el elemento de los resultados (mantenerlo)
                 modelonuevoresultados.addElement(this.listaResultados.getModel().getElementAt(i));
             }
         }
-        
+
+        // Asignar modelo a la lista de quiniela (JList)
         this.listaQuiniela.setModel(modelonuevoquiniela);
+        // Asignar modelo a la lista de resultados (JList)
         this.listaResultados.setModel(modelonuevoresultados);
     }
-    
-   
+
+    /**
+     * Método inicial que crea y muestra el formulario de apuestas
+     *
+     * @param args Array con cadenas de caracteres
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
