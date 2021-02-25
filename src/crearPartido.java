@@ -3,20 +3,20 @@ import java.awt.event.KeyEvent;
 
 
 
-public class ventanaNuevo extends javax.swing.JFrame
+public class crearPartido extends javax.swing.JFrame
 {
    
     
-    private ventanaPrincipal v;
+    private Apuesta v;
     
    
-    public ventanaNuevo() 
+    public crearPartido() 
     {
         initComponents();
     }
 
    
-    public ventanaNuevo(ventanaPrincipal ventana) 
+    public crearPartido(Apuesta ventana) 
     {
         initComponents();
         v = ventana;
@@ -70,21 +70,21 @@ public class ventanaNuevo extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void agregarPartido(String p)
+    public void añadePartido(String p)
     {
-        v.agregarPartido(p);
+        v.partidoNuevo(p);
         tPartido.setText("");
         tPartido.requestFocus();
     }
     
     private void bAgregarPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarPartidoActionPerformed
-        agregarPartido(tPartido.getText());
+        añadePartido(tPartido.getText());
     }//GEN-LAST:event_bAgregarPartidoActionPerformed
 
     private void tPartidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tPartidoKeyPressed
         if( evt.getKeyCode() == KeyEvent.VK_ENTER )
         {
-            agregarPartido(tPartido.getText());
+            añadePartido(tPartido.getText());
         }
     }//GEN-LAST:event_tPartidoKeyPressed
 
@@ -103,20 +103,21 @@ public class ventanaNuevo extends javax.swing.JFrame
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ventanaNuevo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(crearPartido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ventanaNuevo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(crearPartido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ventanaNuevo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(crearPartido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ventanaNuevo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(crearPartido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ventanaNuevo().setVisible(true);
+                new crearPartido().setVisible(true);
             }
         });
     }
