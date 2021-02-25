@@ -1,28 +1,40 @@
 
 import java.awt.event.KeyEvent;
 
+/**
+ * Clase Vista encargada de la creación de partidos; extendida de JFrame
+ *
+ * @author Isidro Manuel Linares Camarena
+ * @version 1.0
+ * @since 1.0
+ */
+public class crearPartido extends javax.swing.JFrame {
 
-
-public class crearPartido extends javax.swing.JFrame
-{
-   
-    
+    /**
+     * Objeto de la clase Apuesta (ventana)
+     */
     private Apuesta v;
-    
-   
-    public crearPartido() 
-    {
+
+    /**
+     * Constructor sin parámetros que inicializa los componentes gráficos
+     * (textos, fondos, colores, etc)
+     */
+    public crearPartido() {
         initComponents();
     }
 
-   
-    public crearPartido(Apuesta ventana) 
-    {
+    /**
+     * Constructor con parámetro que inicializa los componentes gráficos
+     * (textos, fondos, colores, etc)
+     *
+     * @param ventana Objeto de tipo Apuesta
+     */
+    public crearPartido(Apuesta ventana) {
         initComponents();
+        // Asignar objeto recibido al de esta clase
         v = ventana;
     }
-    
-   
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -70,25 +82,48 @@ public class crearPartido extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void añadePartido(String p)
-    {
+    /**
+     * Método que llama al método <code>partidoNuevo</code> para añadir un nuevo
+     * partido
+     *
+     * @param p Cadena de caracteres con el nombre del partido
+     */
+    public void añadePartido(String p) {
+        // Crear partido
         v.partidoNuevo(p);
+        // Vaciar campo del nombre del partido
         tPartido.setText("");
+        // Establecer el foco en el campo de texto
         tPartido.requestFocus();
     }
-    
+
+    /**
+     * Método para realizar la llamada para agregar partidos; se ejecuta al
+     * pulsar el botón Aceptar del pequeño formulario
+     *
+     * @param evt Evento obtenido de tipo ActionEvent
+     */
     private void bAgregarPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarPartidoActionPerformed
         añadePartido(tPartido.getText());
     }//GEN-LAST:event_bAgregarPartidoActionPerformed
 
+    /**
+     * Método para realizar la llamada para agregar partidos; se ejecuta al
+     * pulsar la tecla "INTRO" del reclado
+     *
+     * @param evt Evento obtenido de tipo ActionEvent
+     */
     private void tPartidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tPartidoKeyPressed
-        if( evt.getKeyCode() == KeyEvent.VK_ENTER )
-        {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             añadePartido(tPartido.getText());
         }
     }//GEN-LAST:event_tPartidoKeyPressed
 
-    
+    /**
+     * Método inicial que crea y muestra el formulario
+     *
+     * @param args Array con cadenas de caracteres
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
